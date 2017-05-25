@@ -103,6 +103,39 @@ namespace MMS
             }
         }
 
+        public Boolean checkFloderName(String floderName) {
+
+            var authorStartIndex = floderName.IndexOf("[");
+            var authorEndIndex = floderName.IndexOf("]");
+
+            if (authorStartIndex < 0)
+            {
+                return false;
+            }
+            else if (authorEndIndex < 0)
+            {
+                return false;
+            }
+            else if (authorEndIndex >= authorStartIndex) {
+                return false;
+            }
+
+            string source = floderName;
+            int count = source.Length - source.Replace("[", "").Length;
+            if (count < 1) {
+                return false;
+             }
+            source = floderName;
+            count = count = source.Length - source.Replace("]", "").Length;
+
+            if (count < 1)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         public void processFloder() {
             var files = System.IO.Directory.GetDirectories(processFloderPath, "*", SearchOption.TopDirectoryOnly);
             foreach (String str in files)
