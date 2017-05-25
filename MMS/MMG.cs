@@ -25,6 +25,16 @@ namespace MMS
         String storagePathLineMA;
         String storagePathLineYA;
 
+        String storagePathLineA_;
+        String storagePathLineKA_;
+        String storagePathLineSA_;
+        String storagePathLineTA_;
+        String storagePathLineNA_;
+        String storagePathLineHA_;
+        String storagePathLineMA_;
+        String storagePathLineYA_;
+
+
 
         public void initital() {
             mmgFloderPath = ConfigurationManager.AppSettings["folder_path"];
@@ -42,6 +52,16 @@ namespace MMS
             storagePathLineMA = storageFloderPath + "\\line_ま";
             storagePathLineYA = storageFloderPath + "\\line_や";
 
+            storagePathLineA_ = storageFloderPath + "\\line_ア";
+            storagePathLineKA_ = storageFloderPath + "\\line_カ";
+            storagePathLineSA_ = storageFloderPath + "\\line_サ";
+            storagePathLineTA_ = storageFloderPath + "\\line_タ";
+            storagePathLineNA_ = storageFloderPath + "\\line_ナ";
+            storagePathLineHA_ = storageFloderPath + "\\line_ハ";
+            storagePathLineMA_ = storageFloderPath + "\\line_マ";
+            storagePathLineYA_ = storageFloderPath + "\\line_ヤ";
+
+
             System.IO.Directory.CreateDirectory(processFloderPath);
             System.IO.Directory.CreateDirectory(storageFloderPath);
 
@@ -56,6 +76,14 @@ namespace MMS
             System.IO.Directory.CreateDirectory(storagePathLineMA);
             System.IO.Directory.CreateDirectory(storagePathLineYA);
 
+            System.IO.Directory.CreateDirectory(storagePathLineA_);
+            System.IO.Directory.CreateDirectory(storagePathLineKA_);
+            System.IO.Directory.CreateDirectory(storagePathLineSA_);
+            System.IO.Directory.CreateDirectory(storagePathLineTA_);
+            System.IO.Directory.CreateDirectory(storagePathLineNA_);
+            System.IO.Directory.CreateDirectory(storagePathLineHA_);
+            System.IO.Directory.CreateDirectory(storagePathLineMA_);
+            System.IO.Directory.CreateDirectory(storagePathLineYA_);
 
             var files = System.IO.Directory.GetDirectories(mmgFloderPath, "*", SearchOption.TopDirectoryOnly);
             foreach (String str in files){
@@ -130,6 +158,38 @@ namespace MMS
                 {
                     targetPath = storagePathAlphabet;
                 }
+                else if (initial >= 12449 & initial <= 12458)
+                {
+                    targetPath = storagePathLineA_;
+                }
+                else if (initial >= 12459 & initial <= 12468)
+                {
+                    targetPath = storagePathLineKA_;
+                }
+                else if (initial >= 12469 & initial <= 12478)
+                {
+                    targetPath = storagePathLineSA_;
+                }
+                else if (initial >= 12479 & initial <= 12489)
+                {
+                    targetPath = storagePathLineTA_;
+                }
+                else if (initial >= 12490 & initial <= 12494)
+                {
+                    targetPath = storagePathLineNA_;
+                }
+                else if (initial >= 12495 & initial <= 12509)
+                {
+                    targetPath = storagePathLineHA_;
+                }
+                else if (initial >= 12510 & initial <= 12514)
+                {
+                    targetPath = storagePathLineMA_;
+                }
+                else if (initial >= 12515 & initial <= 12538)
+                {
+                    targetPath = storagePathLineYA;
+                }
 
                 Console.WriteLine(targetPath + "\\" + authorName);
                 
@@ -140,6 +200,7 @@ namespace MMS
                     System.IO.Directory.Move(@str, @targetPath + "\\" + authorName + "\\" + Path.GetFileName((str)));
                 }
                 catch {
+
                 }
                 
             }
