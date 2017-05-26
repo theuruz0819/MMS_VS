@@ -86,7 +86,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Parser.cs" />
+    <Compile Include="DataBase.cs" />
+    <Compile Include="Data\Tag.cs" />
     <Compile Include="MMG.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

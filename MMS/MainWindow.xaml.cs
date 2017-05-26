@@ -4,6 +4,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
 using System.Configuration;
+using System.Collections.Generic;
+using MMS.Data;
+
 namespace MMS
 {
     /// <summary>
@@ -12,7 +15,7 @@ namespace MMS
     public partial class MainWindow : Window
     {
         MMG mmg = new MMG();
-
+        DataBase sqliteDb = new DataBase();
         public MainWindow()
         {
             InitializeComponent();
@@ -65,7 +68,19 @@ namespace MMS
 
         private void process_btn_Click(object sender, RoutedEventArgs e)
         {
-            mmg.processFloder();
+            //mmg.processFloder();
+            //testing database
+            //sqliteDb.selectQuery("SELECT * FROM TEST_TABLE");
+            //Console.WriteLine("db test finish");
+
+            // testing data binding
+
+            List<Tag> tags = new List<Tag>();
+            tags.Add(new Tag() { name = "tag1"});
+            tags.Add(new Tag() { name = "tag2" });
+            tags.Add(new Tag() { name = "tag3" });
+            tags.Add(new Tag() { name = "tag4" });
+            tag_list.ItemsSource = tags;
         }
 
         private void folder_select_text_box_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

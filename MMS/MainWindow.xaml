@@ -5,15 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MMS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="644" Width="904">
-    <Grid>
+        Title="MainWindow" Height="809.607" Width="1122.274">
+    <Grid Margin="0,0,0,1">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="677*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="427*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
         <Button x:Name="folder_select_btn" Content="Select" HorizontalAlignment="Left" Height="44" Margin="386,10,0,0" VerticalAlignment="Top" Width="116" Click="folder_select_btn_Click" />
         <Button x:Name="start_btn" Content="Start" HorizontalAlignment="Left" Height="44" Margin="507,10,0,0" VerticalAlignment="Top" Width="112" Click="start_btn_Click"/>
-        <Label x:Name="info_box" Content="info" HorizontalAlignment="Left" Height="44" Margin="624,10,0,0" VerticalAlignment="Top" Width="262"/>
-        <ListBox x:Name="auth_list" HorizontalAlignment="Left" Height="482" Margin="10,122,0,0" VerticalAlignment="Top" Width="241"/>
-        <ListBox x:Name="comic_list" HorizontalAlignment="Left" Height="482" Margin="256,122,0,0" VerticalAlignment="Top" Width="630"/>
-        <Button x:Name="process_btn" Content="process" HorizontalAlignment="Left" Height="53" Margin="386,64,0,0" VerticalAlignment="Top" Width="116" Click="process_btn_Click"/>
+        <Label x:Name="info_box" Content="info" Height="44" Margin="125,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="262" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <ListBox x:Name="tag_list" Margin="10,122,0,0" HorizontalAlignment="Left" Width="241" Height="646" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding name}" FontSize="20"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox x:Name="comic_list" Margin="256,122,10,0" Grid.ColumnSpan="3" Height="646" VerticalAlignment="Top"/>
+        <Button x:Name="process_btn" Content="process" Height="44" Margin="642,10,316,0" VerticalAlignment="Top" Click="process_btn_Click" Grid.ColumnSpan="3"/>
         <TextBox x:Name="folder_select_text_box" HorizontalAlignment="Left" Height="39" Margin="10,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371" TextChanged="folder_select_text_box_TextChanged"/>
+        <TextBox x:Name="tag_filter_text_box" HorizontalAlignment="Left" Margin="10,65,0,0" TextWrapping="Wrap" Text="TextBox" Width="241" Height="52" VerticalAlignment="Top"/>
+        <ListBox x:Name="selected_tag_list_box" HorizontalAlignment="Left" Height="52" Margin="256,65,0,0" VerticalAlignment="Top" Width="838" Grid.ColumnSpan="3">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Padding" Value="3,3,3,3"/>
+                    <Setter Property="Margin" Value="3,3,3,3"/>
+                    <Setter Property="BorderBrush">
+                        <Setter.Value>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Color="#FFA3AEB9" Offset="0"/>
+                                <GradientStop Color="#FF8399A9" Offset="0.375"/>
+                                <GradientStop Color="#FF718597" Offset="0.375"/>
+                                <GradientStop Color="#FF617584" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                
+            </ListBox.ItemContainerStyle>
+            <ListBoxItem>Item0</ListBoxItem>
+
+            <ListBoxItem>Item1</ListBoxItem>
+        </ListBox>
 
     </Grid>
 </Window>
