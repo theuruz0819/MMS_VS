@@ -5,39 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MMS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="809.607" Width="1122.274">
+        Title="MainWindow" Height="812.607" Width="1387.774" ResizeMode="NoResize">
     <Grid Margin="0,0,0,1">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="0*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="677*"/>
+            <ColumnDefinition Width="553*"/>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="427*"/>
-            <ColumnDefinition Width="10*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="folder_select_btn" Content="Select" HorizontalAlignment="Left" Height="44" Margin="386,10,0,0" VerticalAlignment="Top" Width="116" Click="folder_select_btn_Click" />
-        <Button x:Name="start_btn" Content="Start" HorizontalAlignment="Left" Height="44" Margin="507,10,0,0" VerticalAlignment="Top" Width="112" Click="start_btn_Click"/>
-        <Label x:Name="info_box" Content="info" Height="44" Margin="125,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="262" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <ListBox x:Name="tag_list" Margin="10,122,0,0" HorizontalAlignment="Left" Width="241" Height="646" VerticalAlignment="Top">
+        <Button x:Name="folder_select_btn" Content="Select" HorizontalAlignment="Left" Height="44" Margin="386,10,0,0" VerticalAlignment="Top" Width="50" Click="folder_select_btn_Click" />
+        <Button x:Name="start_btn" Content="Start" HorizontalAlignment="Left" Height="44" Margin="441,10,0,0" VerticalAlignment="Top" Width="100" Click="start_btn_Click"/>
+        <ListBox x:Name="tag_list" Margin="10,122,0,0" HorizontalAlignment="Left" Width="241" Height="646" VerticalAlignment="Top" SelectionChanged="tag_list_SelectionChanged" MouseDoubleClick="tag_list_double_click">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid Margin="0,2">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding name}" FontSize="20"/>
+                        <TextBlock Text="{Binding name}" FontSize="15"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <ListBox x:Name="comic_list" Margin="256,122,10,0" Grid.ColumnSpan="3" Height="646" VerticalAlignment="Top"/>
-        <Button x:Name="process_btn" Content="process" Height="44" Margin="642,10,316,0" VerticalAlignment="Top" Click="process_btn_Click" Grid.ColumnSpan="3"/>
-        <TextBox x:Name="folder_select_text_box" HorizontalAlignment="Left" Height="39" Margin="10,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="371" TextChanged="folder_select_text_box_TextChanged"/>
+        <ListBox x:Name="comic_list" Margin="256,122,369,0" Height="646" VerticalAlignment="Top" SelectionChanged="comic_list_SelectionChanged" MouseDoubleClick="comic_list_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding title}" FontWeight="Bold" Width="400" FontSize="20"/>
+                        <TextBlock Text="{Binding path}" FontSize="20"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="process_btn" Content="process" Height="44" Margin="546,10,724,0" VerticalAlignment="Top" Click="process_btn_Click"/>
+        <TextBox x:Name="folder_select_text_box" HorizontalAlignment="Left" Height="39" Margin="10,12,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="364" TextChanged="folder_select_text_box_TextChanged"/>
         <TextBox x:Name="tag_filter_text_box" HorizontalAlignment="Left" Margin="10,65,0,0" TextWrapping="Wrap" Text="TextBox" Width="241" Height="52" VerticalAlignment="Top"/>
-        <ListBox x:Name="selected_tag_list_box" HorizontalAlignment="Left" Height="52" Margin="256,65,0,0" VerticalAlignment="Top" Width="838" Grid.ColumnSpan="3">
+        <ListBox x:Name="selected_tag_list_box" Height="52" Margin="256,65,0,0" VerticalAlignment="Top" SelectionChanged="selected_tag_list_box_SelectionChanged" MouseDoubleClick="selected_tag_list_double_click">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -58,12 +65,33 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-                
+
             </ListBox.ItemContainerStyle>
-            <ListBoxItem>Item0</ListBoxItem>
-
-            <ListBoxItem>Item1</ListBoxItem>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding name}" FontSize="15"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-
+        <ListBox x:Name="selected_comic_list" Margin="1006,122,0,16" MouseDoubleClick="selected_comic_list_MouseDoubleClick">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <WrapPanel>
+                        <TextBlock Text="{Binding title}" FontWeight="Bold" Width="400" FontSize="20"/>
+                    </WrapPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="54" Margin="379,6,0,0" VerticalAlignment="Top" Width="274"/>
+        <Button x:Name="random_btn" Content="Random" HorizontalAlignment="Left" Height="44" Margin="675,10,0,0" VerticalAlignment="Top" Width="100"/>
+        <Button x:Name="random_with_no_tag_btn" Content="Rand with no tag" HorizontalAlignment="Left" Height="44" Margin="780,10,0,0" VerticalAlignment="Top" Width="135"/>
+        <Button x:Name="copy_to_process_btn" Content="Copy to process" HorizontalAlignment="Left" Height="44" Margin="975,10,0,0" VerticalAlignment="Top" Width="158" Click="copy_to_process_btn_Click"/>
+        <Button x:Name="add_tag_btn" Content="Add tag" Height="44" Margin="1188,10,10,0" VerticalAlignment="Top" Click="add_tag_btn_Click"/>
+        <ProgressBar x:Name="copy_progress_bar" HorizontalAlignment="Left" Height="44" Margin="972,10,0,0" VerticalAlignment="Top" Width="161" ValueChanged="ProgressBar_ValueChanged" Visibility="Hidden"/>
     </Grid>
 </Window>

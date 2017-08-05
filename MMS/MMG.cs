@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace MMS
 {
@@ -13,6 +14,7 @@ namespace MMS
         String mmgFloderPath;
         String processFloderPath;
         String storageFloderPath;
+        String viewFloderPath;
 
         String storagePathAlphabet;
         String storagePathOthers;
@@ -40,6 +42,7 @@ namespace MMS
             mmgFloderPath = ConfigurationManager.AppSettings["folder_path"];
             processFloderPath = mmgFloderPath + "\\process";
             storageFloderPath = mmgFloderPath + "\\storage";
+            viewFloderPath = mmgFloderPath + "\\view";
 
             storagePathAlphabet = storageFloderPath + "\\A_Z";
             storagePathOthers = storageFloderPath + "\\others";
@@ -64,6 +67,7 @@ namespace MMS
 
             System.IO.Directory.CreateDirectory(processFloderPath);
             System.IO.Directory.CreateDirectory(storageFloderPath);
+            System.IO.Directory.CreateDirectory(viewFloderPath);
 
             System.IO.Directory.CreateDirectory(storagePathAlphabet);
             System.IO.Directory.CreateDirectory(storagePathOthers);
@@ -136,19 +140,58 @@ namespace MMS
             return true;
         }
 
+        public void DirectoryCopy(string sourceDirName, string title)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+            String destDirName = Path.Combine(viewFloderPath, title);
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+            else {
+                return;
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath);
+                }
+
+        }
+
         public void processFloder() {
             var files = System.IO.Directory.GetDirectories(processFloderPath, "*", SearchOption.TopDirectoryOnly);
+            String list = "";
             foreach (String str in files)
             {
                 var startIndex = str.IndexOf("[");
                 var endIndex = str.IndexOf("]");
                 var authorName = str.Substring(startIndex, endIndex - startIndex + 1);
                 int initial = authorName[1];
-
+                /*
                 Console.WriteLine(Path.GetFileName((str)));
                 Console.WriteLine(authorName);
                 Console.WriteLine(initial);
-
+                */
                 var targetPath = storagePathOthers;
 
                 if (initial >= 12353 & initial <= 12362)
@@ -225,18 +268,26 @@ namespace MMS
                 }
 
                 Console.WriteLine(targetPath + "\\" + authorName);
-                
+
                 
                 System.IO.Directory.CreateDirectory(@targetPath + "\\" + authorName);
                 try
                 {
                     System.IO.Directory.Move(@str, @targetPath + "\\" + authorName + "\\" + Path.GetFileName((str)));
                 }
-                catch {
+                catch (Exception e){
 
                 }
                 
             }
+            if (list.Length < 2)
+            {
+                MessageBoxResult result = MessageBox.Show("No Repeted", "Completed", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            }
+            else {
+                MessageBoxResult result = MessageBox.Show(list, "Existing", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            }
+            
         }
 
     }
